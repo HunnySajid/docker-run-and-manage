@@ -89,7 +89,9 @@ The running container maintains its activity independently. `docker logs` simply
 **Important note about signals:** When you use `docker attach`, your terminal's STDIN, STDOUT, and STDERR streams are now connected to the container. This means:
 - Pressing **Ctrl+C** sends a signal (SIGINT) directly to the container's main process
 - This can cause the container to stop, depending on how the process handles the signal
-- To detach without stopping the container, press **Ctrl+P** followed by **Ctrl+Q**
+- To detach without stopping the container:
+  - On Linux: Press **Ctrl+P** followed by **Ctrl+Q**
+  - On Mac/Windows: The Ctrl+P+Q sequence doesn't work by default. Instead, open another terminal and use `docker stop <container-id>` to stop it, or configure custom detach keys using the `--detach-keys` flag when attaching (e.g., `docker attach --detach-keys="ctrl-x" <container-id>`)
 
 ## Key Differences Summary
 
@@ -122,5 +124,5 @@ Keep experimenting with running containers in both foreground and detached modes
 2. Use `docker logs <container-id>` to view all logs
 3. Use `docker attach <container-id>` to attach to the container
 4. While attached, try pressing **Ctrl+C** - what happens?
-5. Run another container in detached mode and try detaching from it using **Ctrl+P** followed by **Ctrl+Q** - does the container keep running?
+5. Run another container in detached mode and try detaching from it. On Linux, use **Ctrl+P** followed by **Ctrl+Q**. On Mac/Windows, use `docker stop <container-id>` from another terminal - does the container keep running?
 6. Compare the output of `docker logs` (shows complete history) with `docker attach` (shows only from attachment point)
